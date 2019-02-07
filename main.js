@@ -46,21 +46,21 @@ app.on('activate', function () {
   }
 })
 
-const { app } = require('electron')
-app.on('ready', () => {
-  const { net } = require('electron')
-  const request = net.request('https://github.com')
-  request.on('response', (response) => {
-    console.log(`STATUS: ${response.statusCode}`)
-    console.log(`HEADERS: ${JSON.stringify(response.headers)}`)
-    response.on('data', (chunk) => {
-      console.log(`BODY: ${chunk}`)
-    })
-    response.on('end', () => {
-      console.log('No more data in response.')
-    })
-  })
-  request.end()
-})
+// const { app } = require('electron')
+// app.on('ready', () => {
+//   const { net } = require('electron')
+//   const request = net.request('https://github.com')
+//   request.on('response', (response) => {
+//     console.log(`STATUS: ${response.statusCode}`)
+//     console.log(`HEADERS: ${JSON.stringify(response.headers)}`)
+//     response.on('data', (chunk) => {
+//       console.log(`BODY: ${chunk}`)
+//     })
+//     response.on('end', () => {
+//       console.log('No more data in response.')
+//     })
+//   })
+//   request.end()
+// })
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
