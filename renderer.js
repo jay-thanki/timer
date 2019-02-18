@@ -1,50 +1,39 @@
-window.onload = function(){
-var h1 = document.getElementsByTagName('h1')[0],
-    start = document.getElementById('start'),
-    stop = document.getElementById('stop'),
-    clear = document.getElementById('clear'),
-    seconds = 0, minutes = 0, hours = 0,
-    t;
+$(document).ready(function () {
+$(function () {
 
-function add() {
-    seconds++;
-    if (seconds >= 60) {
-        seconds = 0;
-        minutes++;
-        if (minutes >= 60) {
-            minutes = 0;
-            hours++;
-        }
+   // var lapsNr = 1;
+
+    function format(ms) {
+        var minutes = Math.floor(ms / (1000 * 60)),
+            seconds = Math.floor((ms - minutes * 1000 * 60) / 1000),
+            fract = Math.floor((ms - minutes * 1000 * 60 - seconds * 1000) / 10);
+
+        return minutes + 'm ' + (seconds < 10 ? '0' : '') + seconds + 's.' + (fract < 10 ? '0' : '') + fract;
     }
+	
+    $('#demo').mobiscroll().timer({
+        theme: 'ios',
+        display: 'inline',
+        step: 0.01,
+        mode: 'stopwatch',
+        rows: 1,
+        cssClass: 'mbsc-no-padding',
+         onReset: function () {
+            $('#laps').remove();
+            //lapsNr = 1;
+        },
+        onLap: function (ev, inst) {
+            $('#laps').prepend('<tr><td>#' + lapsNr + '</td><td> - ' + format(ev.lap) + ' - </td><td>' + format(ev.ellapsed) + '</td></tr>');
+            lapsNr++;
+        } ,onStart: function (event, inst) {        // More info about onStart: https://docs.mobiscroll.com/4-5-3/javascript/timer#event-onStart
+            
+	
+        },
+    });
+	
 
-    h1.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
-
-    timer();
-}
-function timer() {
-    t = setTimeout(add, 1000);
-}
-timer();
+});
 
 
-/* Start button */
-start.onclick = timer;
+});
 
-/* Stop button */
-stop.onclick = function() {
-    clearTimeout(t);
-}
-
-/* Clear button */
-clear.onclick = function() {
-    h1.textContent = "00:00:00";
-    seconds = 0; minutes = 0; hours = 0;
-}
-}
-const request = net.request({
-  method: 'GET',
-  protocol: 'http:',
-  hostname: 'github.com',
-  port: 443,
-  path: '/'
-})

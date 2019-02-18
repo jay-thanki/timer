@@ -1,13 +1,13 @@
 // Modules to control application life and create native browser window
 const {app, BrowserWindow} = require('electron')
-
+const axios=require('axios');
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 250, height: 400})
+  mainWindow = new BrowserWindow({width: 250,minWidth:300, height: 400})
 
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
@@ -23,6 +23,17 @@ function createWindow () {
     mainWindow = null
   })
 }
+
+//api call
+function getJson(){
+axios.get('https://jsonplaceholder.typicode.com/todos/1')
+.then(res=>{
+	const cryptos = res.data
+console.log(cryptos);
+})
+}
+getJson()
+setInterval(getJson,30000);
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -46,21 +57,5 @@ app.on('activate', function () {
   }
 })
 
-// const { app } = require('electron')
-// app.on('ready', () => {
-//   const { net } = require('electron')
-//   const request = net.request('https://github.com')
-//   request.on('response', (response) => {
-//     console.log(`STATUS: ${response.statusCode}`)
-//     console.log(`HEADERS: ${JSON.stringify(response.headers)}`)
-//     response.on('data', (chunk) => {
-//       console.log(`BODY: ${chunk}`)
-//     })
-//     response.on('end', () => {
-//       console.log('No more data in response.')
-//     })
-//   })
-//   request.end()
-// })
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
