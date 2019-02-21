@@ -1,5 +1,5 @@
 # timer
-	> electron js demo
+	 Electron js demo
 
 ### Installation
 
