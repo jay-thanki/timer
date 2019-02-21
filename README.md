@@ -1,4 +1,4 @@
-# timer
+# Time Tracking App
 	 Electron js demo
 
 ### Installation
